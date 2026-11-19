@@ -1,0 +1,52 @@
+{
+  "name": "input-router",
+  "version": "0.1.0",
+  "description": "Routes large file reads and connector/tool outputs through Haiku (or Sonnet) so only task-relevant findings and exact references reach the main chat; tracks token savings.",
+  "author": {
+    "name": "mahboobmonnamd"
+  },
+  "license": "MIT",
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "enabled": {
+      "type": "boolean",
+      "title": "Enabled",
+      "description": "Route large inputs through the summarizer. Also toggled with /input-router on|off.",
+      "default": true
+    },
+    "model": {
+      "type": "string",
+      "title": "Summarizer model",
+      "description": "Model that extracts the relevant parts of a large input.",
+      "default": "haiku",
+      "options": [
+        "haiku",
+        "sonnet"
+      ]
+    },
+    "thresholdTokens": {
+      "type": "number",
+      "title": "Threshold (tokens)",
+      "description": "Inputs estimated above this many tokens (about 4 characters each) are routed.",
+      "default": 2000
+    },
+    "tools": {
+      "type": "string",
+      "title": "Routed tools",
+      "description": "Comma-separated tool names; a trailing * matches a prefix (mcp__* is every connector). Add Bash, Grep or WebSearch to route those too.",
+      "default": "Read,WebFetch,mcp__*"
+    },
+    "maxSummaryTokens": {
+      "type": "number",
+      "title": "Summary cap (tokens)",
+      "description": "Upper bound on the summarizer's reply.",
+      "default": 900
+    },
+    "stripKeys": {
+      "type": "string",
+      "title": "Extra keys to strip",
+      "description": "Optional regular expression; JSON fields whose key matches are removed by the pre-filter, on top of the built-in avatar/image/metadata rules.",
+      "default": ""
+    }
+  }
+}
